@@ -1,0 +1,18 @@
+{
+    "content_scripts": [
+        {
+            "css": [
+                "links.css"
+            ],
+            "js": [
+                "links.js"
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
+        }
+    ],
+    "version": "0.1",
+    "name": "Power Puff",
+    "manifest_version": 2
+}
