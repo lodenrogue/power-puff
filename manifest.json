@@ -5,6 +5,8 @@
                 "links.css"
             ],
             "js": [
+                "trie.js",
+                "registry.js",
                 "links.js"
             ],
             "matches": [

@@ -1,92 +1,100 @@
-const letters = ["A", "B", "C", "D", "E", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-const hintClassName = 'powerpuff-hint';
+class LinkHinter {
 
-let linkMap = {};
+    constructor() {
+        this.letters = ["A", "B", "C", "D", "E", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+        this.hintClassName = 'powerpuff-hint';
+        this.linkMap = {};
 
-let firstLetterIndex = 0;
-let secondLetterIndex = 0;
+        this.firstLetterIndex = 0;
+        this.secondLetterIndex = 0;
+        this.isActive = false;
+        this.pressedKey = '';
 
-let isActive = false;
-let pressedKey = '';
+        this.toggleKey = 'f'
+        registry.register(['Control', this.toggleKey], () => this.toggleHint());
 
-document.addEventListener('keypress', (e) => {
-    if (e.key == 'f') {
-        toggleHint();
+        this.createKeyListener();
     }
-    else {
-        processSelection(e.key);
+
+    createKeyListener() {
+        document.addEventListener('keypress', (e) => {
+            if (this.isActive && e.key != 'Control' && e.key != 'f') {
+                this.processSelection(e.key);
+            }
+        });
     }
 
-});
+    processSelection(key) {
+        this.pressedKey += key.toUpperCase();
 
-function processSelection(key) {
-    pressedKey += key.toUpperCase();
+        if (this.pressedKey.length > 1) {
+            this.goToLink(this.pressedKey);
+            this.pressedKey = '';
 
-    if (pressedKey.length > 1) {
-        goToLink(pressedKey);
-        pressedKey = '';
-
-        removeHints();
-        isActive = false;
-    }
-}
-
-function toggleHint() {
-    if (isActive) {
-        removeHints();
-    }
-    else {
-        showHints();
-    }
-    isActive = !isActive;
-}
-
-function goToLink(key) {
-    const link = linkMap[key];
-    if (link) {
-        window.location.href = link;
-    }
-}
-
-function removeHints() {
-    const hints = document.getElementsByClassName(hintClassName);
-    while (hints[0]) {
-        hints[0].parentNode.removeChild(hints[0]);
-    }
-    linkMap = {};
-}
-
-function showHints() {
-    firstLetterIndex = 0;
-    secondLetterIndex = 0;
-
-    const links = document.getElementsByTagName("a");
-
-    for (link of links) {
-        const letters = getNextLinkHint();
-
-        if (letters) {
-            linkMap[letters] = link.href;
-            addHint(link, letters);
+            this.removeHints();
+            this.isActive = false;
         }
     }
-}
 
-function addHint(link, letters) {
-    const hintElem = document.createElement("span");
-    hintElem.classList.add(hintClassName);
-
-    const hint = document.createTextNode(letters);
-    hintElem.appendChild(hint);
-    link.prepend(hintElem);
-}
-
-function getNextLinkHint() {
-    if (firstLetterIndex > letters.length - 1) return null;
-
-    if (secondLetterIndex > letters.length - 1) {
-        secondLetterIndex = 0;
-        firstLetterIndex++;
+    toggleHint() {
+        if (this.isActive) {
+            this.removeHints();
+        }
+        else {
+            this.showHints();
+        }
+        this.isActive = !this.isActive;
     }
-    return letters[firstLetterIndex] + letters[secondLetterIndex++];
+
+    goToLink(key) {
+        const link = this.linkMap[key];
+        if (link) {
+            window.location.href = link;
+        }
+    }
+
+    removeHints() {
+        const hints = document.getElementsByClassName(this.hintClassName);
+        while (hints[0]) {
+            hints[0].parentNode.removeChild(hints[0]);
+        }
+        this.linkMap = {};
+    }
+
+    showHints() {
+        this.firstLetterIndex = 0;
+        this.secondLetterIndex = 0;
+
+        const links = document.getElementsByTagName("a");
+
+        for (const link of links) {
+            const letters = this.getNextLinkHint();
+
+            if (letters) {
+                this.linkMap[letters] = link.href;
+                this.addHint(link, letters);
+            }
+        }
+    }
+
+    addHint(link, letters) {
+        const hintElem = document.createElement("span");
+        hintElem.classList.add(this.hintClassName);
+
+        const hint = document.createTextNode(letters);
+        hintElem.appendChild(hint);
+        link.prepend(hintElem);
+    }
+
+    getNextLinkHint() {
+        if (this.firstLetterIndex > this.letters.length - 1) return null;
+
+        if (this.secondLetterIndex > this.letters.length - 1) {
+            this.secondLetterIndex = 0;
+            this.firstLetterIndex++;
+        }
+        return this.letters[this.firstLetterIndex] + this.letters[this.secondLetterIndex++];
+    }
 }
+
+new LinkHinter();
