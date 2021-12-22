@@ -24,9 +24,9 @@ class Registry {
         node.command = command;
     }
 
-    createKeyListener(register) {
+    createKeyListener(registry) {
         document.addEventListener('keydown', (e) => {
-            register.keyDown(e.key);
+            registry.keyDown(e.key);
         });
     }
 

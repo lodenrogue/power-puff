@@ -15,13 +15,18 @@ class LinkHinter {
 
     registerKeys() {
         this.toggleKey = 'f';
-        registry.register(['Control', this.toggleKey], () => this.toggleHint());
+        registry.register([this.toggleKey], () => this.toggleHint());
     }
 
     createKeyListener() {
-        document.addEventListener('keypress', (e) => {
-            if (this.isActive && e.key != 'Control' && e.key != 'f') {
-                this.processSelection(e.key);
+        document.addEventListener('keydown', (e) => {
+            if (this.isActive && e.key != this.toggleKey) {
+                if (e.key == 'Escape') {
+                    this.toggleHint();
+                }
+                else {
+                    this.processSelection(e.key);
+                }
             }
         });
     }
