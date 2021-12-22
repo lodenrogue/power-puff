@@ -10,10 +10,12 @@ class LinkHinter {
         this.isActive = false;
         this.pressedKey = '';
 
-        this.toggleKey = 'f'
-        registry.register(['Control', this.toggleKey], () => this.toggleHint());
-
         this.createKeyListener();
+    }
+
+    registerKeys() {
+        this.toggleKey = 'f';
+        registry.register(['Control', this.toggleKey], () => this.toggleHint());
     }
 
     createKeyListener() {
@@ -97,4 +99,4 @@ class LinkHinter {
     }
 }
 
-new LinkHinter();
+new LinkHinter().registerKeys();
