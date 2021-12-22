@@ -1,8 +1,8 @@
 class Registry {
 
     constructor() {
-        this.bindings = new Trie();
-        this.currentCommandNode = this.bindings;
+        this.rootCommandNode = new Trie();
+        this.currentCommandNode = this.rootCommandNode;
         this.isInCommandMode = false;
         this.createKeyListener(this);
     }
@@ -14,7 +14,7 @@ class Registry {
             return;
         }
 
-        let node = this.bindings;
+        let node = this.rootCommandNode;
 
         for (let i = 0; i < keys.length; i++) {
             let childNode = new Trie();
@@ -32,21 +32,25 @@ class Registry {
 
     keyDown(key) {
         if (key in this.currentCommandNode.children) {
-            const node = this.currentCommandNode.children[key];
-
-            if (node.command) {
-                node.command();
-                this.currentCommandNode = this.bindings;
-            }
-            else if (Object.keys(node.children).length) {
-                this.currentCommandNode = node;
-            }
-            else {
-                this.currentCommandNode = this.bindings;
-            }
+            this.processKey(key);
         }
         else {
-            this.currentCommandNode = this.bindings;
+            this.currentCommandNode = this.rootCommandNode;
+        }
+    }
+
+    processKey(key) {
+        const node = this.currentCommandNode.children[key];
+
+        if (node.command) {
+            node.command();
+            this.currentCommandNode = this.rootCommandNode;
+        }
+        else if (Object.keys(node.children).length) {
+            this.currentCommandNode = node;
+        }
+        else {
+            this.currentCommandNode = this.rootCommandNode;
         }
     }
 }
