@@ -2,19 +2,25 @@
     "content_scripts": [
         {
             "css": [
-                "links.css"
+                "links/links.css"
             ],
             "js": [
                 "trie.js",
                 "registry.js",
-                "links.js",
-                "scroll.js"
+                "links/links.js",
+                "scroll/scroll.js",
+                "reload/reload-content.js"
             ],
             "matches": [
                 "<all_urls>"
             ]
         }
     ],
+    "background": {
+        "scripts": [
+            "reload/reload-background.js"
+        ]
+    },
     "version": "0.1",
     "name": "Power Puff",
     "manifest_version": 2
