@@ -9,7 +9,8 @@
                 "registry.js",
                 "links/links.js",
                 "scroll/scroll.js",
-                "reload/reload-content.js"
+                "reload/reload-content.js",
+                "config.js"
             ],
             "matches": [
                 "<all_urls>"

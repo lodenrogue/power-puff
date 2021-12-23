@@ -1,6 +1,7 @@
 class LinkHinter {
 
-    constructor() {
+    constructor(toggleKey) {
+        this.toggleKey = toggleKey;
         this.letters = ["A", "B", "C", "D", "E", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
         this.hintClassName = 'powerpuff-hint';
         this.linkMap = {};
@@ -11,11 +12,6 @@ class LinkHinter {
         this.pressedKey = '';
 
         this.createKeyListener();
-    }
-
-    registerKeys() {
-        this.toggleKey = 'f';
-        registry.register([this.toggleKey], () => this.toggleHint());
     }
 
     createKeyListener() {
@@ -103,5 +99,3 @@ class LinkHinter {
         return this.letters[this.firstLetterIndex] + this.letters[this.secondLetterIndex++];
     }
 }
-
-new LinkHinter().registerKeys();
