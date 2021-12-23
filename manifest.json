@@ -10,6 +10,7 @@
                 "links/links.js",
                 "scroll/scroll.js",
                 "reload/reload-content.js",
+                "tab/tab-content.js",
                 "config.js"
             ],
             "matches": [
@@ -19,7 +20,8 @@
     ],
     "background": {
         "scripts": [
-            "reload/reload-background.js"
+            "reload/reload-background.js",
+            "tab/tab-background.js"
         ]
     },
     "version": "0.1",
