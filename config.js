@@ -1,19 +1,22 @@
+// Input Watcher
+const inputWatcher = new InputWatcher();
+
 // Link Hinter
 const linkHinterKey = "f";
 const linkHinter = new LinkHinter(linkHinterKey);
-registry.register([linkHinterKey], () => linkHinter.toggleHint());
+registry.register("normal", [linkHinterKey], () => linkHinter.toggleHint());
 
 // Reloader
 const reload = new Reload();
-registry.register(["r"], () => reload.reload());
+registry.register("normal", ["r"], () => reload.reload());
 
 // Scroll
 const scroller = new Scroll();
-registry.register(["g", "g"], () => scroller.scrollToTop());
-registry.register(["G"], () => scroller.scrollToBottom());
-registry.register(["d"], () => scroller.scrollDown());
-registry.register(["u"], () => scroller.scrollUp());
+registry.register("normal", ["g", "g"], () => scroller.scrollToTop());
+registry.register("normal", ["G"], () => scroller.scrollToBottom());
+registry.register("normal", ["d"], () => scroller.scrollDown());
+registry.register("normal", ["u"], () => scroller.scrollUp());
 
 // Tab
 const tab = new Tab();
-registry.register(["x"], () => tab.close());
+registry.register("normal", ["x"], () => tab.close());
