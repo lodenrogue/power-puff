@@ -1,7 +1,9 @@
 class LinkHinter {
 
-    constructor(toggleKey) {
-        this.toggleKey = toggleKey;
+    constructor(currentTabToggleKey, newTabToggleKey) {
+        this.currentTabToggleKey = currentTabToggleKey;
+        this.newTabToggleKey = newTabToggleKey;
+
         this.letters = ["A", "B", "C", "D", "E", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
         this.hintClassName = 'powerpuff-hint';
         this.linkMap = {};
@@ -16,7 +18,7 @@ class LinkHinter {
 
     createKeyListener() {
         document.addEventListener('keydown', (e) => {
-            if (this.isActive && e.key != this.toggleKey) {
+            if (this.isActive && this.isNotToggleKey(e.key)) {
                 if (e.key == 'Escape') {
                     this.toggleHint();
                 }
@@ -27,7 +29,12 @@ class LinkHinter {
         });
     }
 
+    isNotToggleKey(key) {
+        return key != this.currentTabToggleKey && key != this.newTabToggleKey;
+    }
+
     processSelection(key) {
+        console.log(key);
         this.pressedKey += key.toUpperCase();
 
         if (this.pressedKey.length > 1) {
@@ -39,7 +46,9 @@ class LinkHinter {
         }
     }
 
-    toggleHint() {
+    toggleHint(openInNewTab) {
+        this.openInNewTab = openInNewTab;
+
         if (this.isActive) {
             this.removeHints();
         }
@@ -51,8 +60,14 @@ class LinkHinter {
 
     goToLink(key) {
         const link = this.linkMap[key];
+
         if (link) {
-            window.location.href = link;
+            if (this.openInNewTab) {
+                chrome.runtime.sendMessage({ action: "open-in-new-tab", url: link }, (r) => { });
+            }
+            else {
+                window.location.href = link;
+            }
         }
     }
 

@@ -8,7 +8,7 @@
                 "trie.js",
                 "registry.js",
                 "input-watcher.js",
-                "links/links.js",
+                "links/links-content.js",
                 "scroll/scroll.js",
                 "reload/reload-content.js",
                 "tab/tab-content.js",
@@ -22,6 +22,7 @@
     "background": {
         "scripts": [
             "reload/reload-background.js",
+            "links/links-background.js",
             "tab/tab-background.js"
         ]
     },

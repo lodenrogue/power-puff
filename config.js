@@ -2,9 +2,12 @@
 const inputWatcher = new InputWatcher();
 
 // Link Hinter
-const linkHinterKey = "f";
-const linkHinter = new LinkHinter(linkHinterKey);
-registry.register("normal", [linkHinterKey], () => linkHinter.toggleHint());
+const linkKeySameTab = "f";
+const linkKeyNewTab = "F";
+
+const linkHinter = new LinkHinter(linkKeySameTab, linkKeyNewTab);
+registry.register("normal", [linkKeySameTab], () => linkHinter.toggleHint(false));
+registry.register("normal", [linkKeyNewTab], () => linkHinter.toggleHint(true));
 
 // Reloader
 const reload = new Reload();
