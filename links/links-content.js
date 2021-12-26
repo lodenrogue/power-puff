@@ -1,6 +1,7 @@
 class LinkHinter {
 
     constructor(currentTabToggleKey, newTabToggleKey) {
+        this.hrefPrefixIgnoreList = ['javascript:'];
         this.currentTabToggleKey = currentTabToggleKey;
         this.newTabToggleKey = newTabToggleKey;
 
@@ -89,13 +90,24 @@ class LinkHinter {
         const links = document.getElementsByTagName('a');
 
         for (const link of links) {
-            const letters = this.getNextLinkHint();
-
-            if (letters) {
-                this.linkMap[letters] = link.href;
-                this.addHint(link, letters);
+            if (this.isLinkAllowed(link)) {
+                this.createHint(link);
             }
         }
+    }
+
+    createHint(link) {
+        const letters = this.getNextLinkHint();
+
+        if (letters) {
+            this.linkMap[letters] = link.href;
+            this.addHint(link, letters);
+        }
+    }
+
+    isLinkAllowed(link) {
+        const match = this.hrefPrefixIgnoreList.find(e => link.href.startsWith(e));
+        return match === undefined;
     }
 
     addHint(link, letters) {
