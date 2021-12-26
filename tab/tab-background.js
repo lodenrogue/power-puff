@@ -18,7 +18,8 @@ class TabService {
     switchToNextTab(context, sendResponse) {
         chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
             const currentTab = tabs[0];
-            context.switchToTab(context, currentTab.id, currentTab.index + 1, sendResponse);
+            const targetTabIndex = currentTab.index + 1;
+            context.switchToTab(context, currentTab.id, targetTabIndex, sendResponse);
         });
     }
 
@@ -28,19 +29,24 @@ class TabService {
                 chrome.tabs.update(tabs[0].id, { highlighted: true });
                 chrome.tabs.update(currentTabId, { highlighted: false });
             }
-            sendResponse("switched-to-next-tab");
+            sendResponse({ message: "switched-to-next-tab" });
         });
     }
 
     registerCloseCurrentTab() {
+        const context = this;
+
         chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             if (request.action == "close-current-tab") {
-                chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-                    chrome.tabs.remove(tabs[0].id);
-                    sendResponse({ message: 'tab-closed' });
-                });
+                context.closeCurrentTab();
             }
         }
         );
+    }
+
+    closeCurrentTab(sendResponse) {
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+            chrome.tabs.remove(tabs[0].id);
+        });
     }
 }

@@ -12,8 +12,7 @@ class Registry {
 
     register(modeName, keys, command) {
         if (keys.includes('Escape')) {
-            console.log("Escape cannot be used as a keybinding");
-            console.log(keys);
+            this.warnInvalidKeyBinding();
             return;
         }
 
@@ -26,6 +25,11 @@ class Registry {
             node = childNode;
         }
         node.command = command;
+    }
+
+    warnInvalidKeyBinding() {
+        console.log("Escape cannot be used as a keybinding");
+        console.log(keys);
     }
 
     changeMode(modeName) {

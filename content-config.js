@@ -9,6 +9,9 @@ const linkHinter = new LinkHinter(linkKeySameTab, linkKeyNewTab);
 registry.register("normal", [linkKeySameTab], () => linkHinter.toggleHint(false));
 registry.register("normal", [linkKeyNewTab], () => linkHinter.toggleHint(true));
 
+registry.register("links", [linkKeySameTab], () => linkHinter.toggleHint(false));
+registry.register("links", [linkKeyNewTab], () => linkHinter.toggleHint(true));
+
 // Reloader
 const reload = new Reload();
 registry.register("normal", ["r"], () => reload.reload());
