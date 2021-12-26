@@ -30,7 +30,7 @@ class TabService {
         const context = this;
 
         chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-            if (request.action == "close-current-tab") {
+            if (request.action == 'close-current-tab') {
                 context.closeCurrentTab(context);
             }
         });
@@ -60,7 +60,7 @@ class TabService {
                 chrome.tabs.update(tabs[0].id, { highlighted: true });
                 chrome.tabs.update(currentTabId, { highlighted: false });
             }
-            sendResponse({ message: "switched-to-next-tab" });
+            sendResponse({ message: 'switched-to-next-tab' });
         });
     }
 

@@ -4,7 +4,7 @@ class LinkHinter {
         this.currentTabToggleKey = currentTabToggleKey;
         this.newTabToggleKey = newTabToggleKey;
 
-        this.letters = ["A", "B", "C", "D", "E", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+        this.letters = ['A', 'B', 'C', 'D', 'E', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
         this.hintClassName = 'powerpuff-hint';
         this.linkMap = {};
 
@@ -66,7 +66,7 @@ class LinkHinter {
 
         if (link) {
             if (this.openInNewTab) {
-                chrome.runtime.sendMessage({ action: "open-in-new-tab", url: link }, (r) => { });
+                chrome.runtime.sendMessage({ action: 'open-in-new-tab', url: link }, (r) => { });
             }
             else {
                 window.location.href = link;
@@ -86,7 +86,7 @@ class LinkHinter {
         this.firstLetterIndex = 0;
         this.secondLetterIndex = 0;
 
-        const links = document.getElementsByTagName("a");
+        const links = document.getElementsByTagName('a');
 
         for (const link of links) {
             const letters = this.getNextLinkHint();
@@ -99,7 +99,7 @@ class LinkHinter {
     }
 
     addHint(link, letters) {
-        const hintElem = document.createElement("span");
+        const hintElem = document.createElement('span');
         hintElem.classList.add(this.hintClassName);
 
         const hint = document.createTextNode(letters);

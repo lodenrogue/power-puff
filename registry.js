@@ -3,8 +3,8 @@ class Registry {
     constructor() {
         this.ignoreKeysList = ['Shift'];
         this.modes = {};
-        this.addMode("normal");
-        this.addMode("insert");
+        this.addMode('normal');
+        this.addMode('insert');
 
         this.currentMode = this.modes.normal;
         this.isInCommandMode = false;
@@ -37,7 +37,7 @@ class Registry {
     }
 
     warnInvalidKeyBinding() {
-        console.log("Escape cannot be used as a keybinding");
+        console.log('Escape cannot be used as a keybinding');
         console.log(keys);
     }
 

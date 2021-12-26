@@ -1,6 +1,6 @@
 class Reload {
 
     reload() {
-        chrome.runtime.sendMessage({ action: "reload" }, (r) => { });
+        chrome.runtime.sendMessage({ action: 'reload' }, (r) => { });
     }
 }
