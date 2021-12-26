@@ -13,6 +13,7 @@ class LinkHinter {
         this.isActive = false;
         this.pressedKey = '';
 
+        registry.addMode('links');
         this.createKeyListener();
     }
 
@@ -34,7 +35,6 @@ class LinkHinter {
     }
 
     processSelection(key) {
-        console.log(key);
         this.pressedKey += key.toUpperCase();
 
         if (this.pressedKey.length > 1) {
@@ -50,9 +50,11 @@ class LinkHinter {
         this.openInNewTab = openInNewTab;
 
         if (this.isActive) {
+            registry.changeMode('normal');
             this.removeHints();
         }
         else {
+            registry.changeMode('links');
             this.showHints();
         }
         this.isActive = !this.isActive;

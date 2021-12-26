@@ -1,10 +1,9 @@
 class Registry {
 
     constructor() {
-        this.modes = {
-            normal: this.createMode("normal"),
-            insert: this.createMode("insert")
-        };
+        this.modes = {};
+        this.addMode("normal");
+        this.addMode("insert");
 
         this.currentMode = this.modes.normal;
         this.isInCommandMode = false;
@@ -41,10 +40,14 @@ class Registry {
             return this.modes[modeName];
         }
         else {
-            const mode = createMode(modeName);
-            this.modes[modeName] = mode;
-            return mode;
+            return this.addMode(modeName);
         }
+    }
+
+    addMode(modeName) {
+        const mode = this.createMode(modeName);
+        this.modes[modeName] = mode;
+        return mode;
     }
 
     createMode(modeName) {
