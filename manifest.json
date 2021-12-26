@@ -12,7 +12,7 @@
                 "scroll/scroll.js",
                 "reload/reload-content.js",
                 "tab/tab-content.js",
-                "config.js"
+                "content-config.js"
             ],
             "matches": [
                 "<all_urls>"
@@ -23,7 +23,8 @@
         "scripts": [
             "reload/reload-background.js",
             "links/links-background.js",
-            "tab/tab-background.js"
+            "tab/tab-background.js",
+            "background-config.js"
         ]
     },
     "version": "0.1",
