@@ -27,3 +27,4 @@ registry.register("normal", ["u"], () => scroller.scrollUp());
 const tab = new Tab();
 registry.register("normal", ["x"], () => tab.close());
 registry.register("normal", ["g", "t"], () => tab.switchToNext());
+registry.register("normal", ["g", "T"], () => tab.switchToPrev());

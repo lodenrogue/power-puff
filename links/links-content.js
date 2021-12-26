@@ -34,16 +34,16 @@ class LinkHinter {
     }
 
     processSelection(key) {
-        if (key.length === 1) {
-            this.pressedKey += key.toUpperCase();
+        if (key.length !== 1) return;
 
-            if (this.pressedKey.length > 1) {
-                this.goToLink(this.pressedKey);
-                this.pressedKey = '';
+        this.pressedKey += key.toUpperCase();
 
-                this.removeHints();
-                this.isActive = false;
-            }
+        if (this.pressedKey.length > 1) {
+            this.goToLink(this.pressedKey);
+            this.pressedKey = '';
+
+            this.removeHints();
+            this.isActive = false;
         }
     }
 

@@ -1,6 +1,7 @@
 class Registry {
 
     constructor() {
+        this.ignoreKeysList = ['Shift'];
         this.modes = {};
         this.addMode("normal");
         this.addMode("insert");
@@ -15,13 +16,21 @@ class Registry {
             this.warnInvalidKeyBinding();
             return;
         }
+        const mode = this.getMode(modeName);
+        this.constructNodes(mode, keys, command);
+    }
 
-        const registeringMode = this.getMode(modeName);
-        let node = registeringMode.rootNode;
+    constructNodes(mode, keys, command) {
+        let node = mode.rootNode;
 
         for (let i = 0; i < keys.length; i++) {
-            let childNode = new Trie();
-            node.children[keys[i]] = childNode;
+            const key = keys[i];
+            let childNode = node.children[key];
+
+            if (!childNode) {
+                childNode = new Trie();
+                node.children[key] = childNode;
+            }
             node = childNode;
         }
         node.command = command;
@@ -70,6 +79,8 @@ class Registry {
     }
 
     keyDown(key) {
+        if (this.ignoreKeysList.includes(key)) return;
+
         if (key in this.currentMode.currentNode.children) {
             this.processKey(key);
         }
