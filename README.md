@@ -28,8 +28,8 @@ Powerful and customizable keyboard shortcuts for your browser.
 ### Tabs
 
 ```
-  gt : Switch to next tab on the left
-  gT : Switch to next tab on the right
+  gt : Switch to next tab on the right
+  gT : Switch to next tab on the left
 ```
 
 ### Cancel command
